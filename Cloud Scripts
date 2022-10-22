@@ -23,6 +23,12 @@ handlers.RemovePlayerCurrency = function RemovePlayerCurrency(args)
     var PlayerToRemoveID = args.PlayerToRemoveID;
     var AmountToRemove = args.AmountToRemove;
     //Make Sure You Set The VirtualCurrency Two Digit Code To Your Currency Code!!
-    server.SubtractUserVirtualCurrencyRequest({PlayFabID: PlayerToRemoveID, VirtualCurrency: "CN", Amount: AmountToRemove});
+    var SubtractUserVirtualCurrencyRequest = {
+	    "PlayFabId" : PlayerToRemoveID,
+	    "VirtualCurrency": "CN",
+	    "Amount": AmountToRemove
+    };
+
+    var SubtractUserVirtualCurrencyResult = server.SubtractUserVirtualCurrency(SubtractUserVirtualCurrencyRequest);
     return "Removed Currency";
 }
