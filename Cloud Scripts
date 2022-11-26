@@ -1,3 +1,21 @@
+handlers.GrantItemToPlayer = function GrantItemToPlayer(args)
+{
+    var GrantPlayerID = args.GrantPlayerID;
+    var GrantItemID = args.GrantItemID;
+    
+    var GrantItemsToUserRequest = {
+	    "PlayFabId" : GrantPlayerID,
+	    "CatalogVersion": "Items",
+	    "ItemIds": GrantItemID,
+	    "Annotation": "purchase"
+    };
+    
+    var GrantItemsToUserResult = server.GrantItemsToUserRequest(GrantItemsToUserRequest);
+    
+    
+    return "Granted: " + GrantItemID + "To Playfab ID: " + GrantPlayerID;
+}
+
 handlers.BanPlayer = function BanPlayer(args)
 {
     var PlayerID = args.PlayerID;
@@ -31,4 +49,59 @@ handlers.RemovePlayerCurrency = function RemovePlayerCurrency(args)
 
     var SubtractUserVirtualCurrencyResult = server.SubtractUserVirtualCurrency(SubtractUserVirtualCurrencyRequest);
     return "Removed Currency";
+}
+
+handlers.SendReport = function SendReport(args) 
+{
+    var ReporterID = args.ReporterID;
+    var ReporterUsername = args.ReporterUsername;
+    var ReportedID = args.ReportedID;
+    var ReportedUsername = args.ReportedUsername;
+    var ReportReason = args.ReportReason;
+    var Color = args.Color;
+    var Title = args.Title;
+    
+    var contentBody = {
+          "content": null,
+          "embeds": [
+            {
+              "title": Title,
+              "color": Color,
+              "fields": [
+                {
+                  "name": "Reporter Username: " + ReporterUsername,
+                  "value": "Profile Link: " + "https://developer.playfab.com/en-us/6AC34/players/" + ReporterID + "/overview"
+                },
+                {
+                  "name": "Reporter PlayFabID: " + ReporterID,
+                  "value": "."
+                },
+                {
+                  "name": "Reported Username: " + ReportedUsername,
+                  "value": "Profile Link: " + "https://developer.playfab.com/en-us/6AC34/players/" + ReportedID + "/overview"
+                },
+                {
+                  "name": "Reported PlayFabID: " + ReportedID,
+                  "value": "."
+                },
+                {
+                  "name": "Reason:",
+                  "value": ReportReason
+                }
+              ],
+              "footer": {
+                "text": "Made By JokerJosh",
+                "icon_url": "https://cdn.discordapp.com/avatars/791550177780563998/2ada0f85e2cc5f1fac3114dcae42a3bb.png?size=512"
+              }
+            }
+          ],
+          "attachments": []
+        };
+    var url = "https://discord.com/api/webhooks/1041272749143891968/hzEJ27VHMg53OIT1fLTvxo8YXIpxy8nONiNhKboE_NZHiCrphWOHdM29d76lFV_L62_h";
+    var method = "post";
+    var contentType = "application/json";
+    var headers = {};
+    var responseString = http.request(url,method,JSON.stringify(contentBody),contentType,headers);
+    
+    return "SentMessage";
 }
