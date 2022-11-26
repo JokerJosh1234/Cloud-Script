@@ -4,10 +4,10 @@ handlers.GrantItemToPlayer = function GrantItemToPlayer(args)
     var GrantItemID = args.GrantItemID;
     
     var GrantItemsToUserRequest = {
-     "PlayFabId" : GrantPlayerID,
-     "CatalogVersion": "Items",
-     "ItemIds": GrantItemID,
-     "Annotation": "purchase"
+	    "PlayFabId" : GrantPlayerID,
+	    "CatalogVersion": "Items",
+	    "ItemIds": GrantItemID,
+	    "Annotation": "purchase"
     };
     
     var GrantItemsToUserResult = server.GrantItemsToUserRequest(GrantItemsToUserRequest);
@@ -42,9 +42,9 @@ handlers.RemovePlayerCurrency = function RemovePlayerCurrency(args)
     var AmountToRemove = args.AmountToRemove;
     //Make Sure You Set The VirtualCurrency Two Digit Code To Your Currency Code!!
     var SubtractUserVirtualCurrencyRequest = {
-     "PlayFabId" : PlayerToRemoveID,
-     "VirtualCurrency": "CN",
-     "Amount": AmountToRemove
+	    "PlayFabId" : PlayerToRemoveID,
+	    "VirtualCurrency": "CN",
+	    "Amount": AmountToRemove
     };
 
     var SubtractUserVirtualCurrencyResult = server.SubtractUserVirtualCurrency(SubtractUserVirtualCurrencyRequest);
@@ -58,18 +58,16 @@ handlers.SendReport = function SendReport(args)
     var ReportedID = args.ReportedID;
     var ReportedUsername = args.ReportedUsername;
     var ReportReason = args.ReportReason;
-    var Color = args.Color;
-    var Title = args.Title;
     
     var contentBody = {
           "content": null,
           "embeds": [
             {
-              "title": Title,
-              "color": Color,
+              "color": 44543,
               "fields": [
                 {
                   "name": "Reporter Username: " + ReporterUsername,
+                  "value": "Profile Link: (**Sensitive Content**)" + "https://developer.playfab.com/en-us/" + "Your Title ID" + "/players/" + ReporterID + "/overview"
                 },
                 {
                   "name": "Reporter PlayFabID: " + ReporterID,
@@ -77,6 +75,7 @@ handlers.SendReport = function SendReport(args)
                 },
                 {
                   "name": "Reported Username: " + ReportedUsername,
+                  "value": "Profile Link (**Sensitive Content**): " + "https://developer.playfab.com/en-us/" + "Your Title ID" + "/players/" + ReportedID + "/overview"
                 },
                 {
                   "name": "Reported PlayFabID: " + ReportedID,
@@ -87,6 +86,10 @@ handlers.SendReport = function SendReport(args)
                   "value": ReportReason
                 }
               ],
+              "author": {
+              "name": "PlayFab Report",
+              "icon_url": "https://images-ext-1.discordapp.net/external/4FPp03SVIn49x6Teu44L95kkP__Ui6fdKbna8g82_wM/%3FimageSize%3D512/https/www.nuget.org/profiles/PlayFab/avatar"
+              },
               "footer": {
                 "text": "Made By JokerJosh",
                 "icon_url": "https://cdn.discordapp.com/avatars/791550177780563998/2ada0f85e2cc5f1fac3114dcae42a3bb.png?size=512"
@@ -95,8 +98,9 @@ handlers.SendReport = function SendReport(args)
           ],
           "attachments": []
         };
-// your webhook link
+// your webhook URL
     var url = "";
+//no need to mess with anything here
     var method = "post";
     var contentType = "application/json";
     var headers = {};
