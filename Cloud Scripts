@@ -4,10 +4,10 @@ handlers.GrantItemToPlayer = function GrantItemToPlayer(args)
     var GrantItemID = args.GrantItemID;
     
     var GrantItemsToUserRequest = {
-	    "PlayFabId" : GrantPlayerID,
-	    "CatalogVersion": "Items",
-	    "ItemIds": GrantItemID,
-	    "Annotation": "purchase"
+     "PlayFabId" : GrantPlayerID,
+     "CatalogVersion": "Items",
+     "ItemIds": GrantItemID,
+     "Annotation": "purchase"
     };
     
     var GrantItemsToUserResult = server.GrantItemsToUserRequest(GrantItemsToUserRequest);
@@ -42,9 +42,9 @@ handlers.RemovePlayerCurrency = function RemovePlayerCurrency(args)
     var AmountToRemove = args.AmountToRemove;
     //Make Sure You Set The VirtualCurrency Two Digit Code To Your Currency Code!!
     var SubtractUserVirtualCurrencyRequest = {
-	    "PlayFabId" : PlayerToRemoveID,
-	    "VirtualCurrency": "CN",
-	    "Amount": AmountToRemove
+     "PlayFabId" : PlayerToRemoveID,
+     "VirtualCurrency": "CN",
+     "Amount": AmountToRemove
     };
 
     var SubtractUserVirtualCurrencyResult = server.SubtractUserVirtualCurrency(SubtractUserVirtualCurrencyRequest);
@@ -70,7 +70,6 @@ handlers.SendReport = function SendReport(args)
               "fields": [
                 {
                   "name": "Reporter Username: " + ReporterUsername,
-                  "value": "Profile Link: " + "https://developer.playfab.com/en-us/6AC34/players/" + ReporterID + "/overview"
                 },
                 {
                   "name": "Reporter PlayFabID: " + ReporterID,
@@ -78,7 +77,6 @@ handlers.SendReport = function SendReport(args)
                 },
                 {
                   "name": "Reported Username: " + ReportedUsername,
-                  "value": "Profile Link: " + "https://developer.playfab.com/en-us/6AC34/players/" + ReportedID + "/overview"
                 },
                 {
                   "name": "Reported PlayFabID: " + ReportedID,
@@ -97,7 +95,8 @@ handlers.SendReport = function SendReport(args)
           ],
           "attachments": []
         };
-    var url = "https://discord.com/api/webhooks/1041272749143891968/hzEJ27VHMg53OIT1fLTvxo8YXIpxy8nONiNhKboE_NZHiCrphWOHdM29d76lFV_L62_h";
+// your webhook link
+    var url = "";
     var method = "post";
     var contentType = "application/json";
     var headers = {};
